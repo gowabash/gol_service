@@ -4,7 +4,9 @@ from flask import jsonify
 from flask import request
 import random
 
+from flask_cors import CORS
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/")
 def hello():
@@ -14,8 +16,6 @@ def hello():
 def create(size):
 	size = int(size)
 	world = make_new_world(size)
-	print request.args 
-	print request.args.get('random')
 	if request.args.get('random', '') != '':
 		for i in range(size):
 			for j in range(size):
