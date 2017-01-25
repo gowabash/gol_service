@@ -1,8 +1,8 @@
-#! /usr/bin/env python
-
+#! /usr/bin/env python 
 from flask import Flask
 from flask import jsonify
 from flask import request
+import random
 
 app = Flask(__name__)
 
@@ -12,7 +12,14 @@ def hello():
 
 @app.route("/gol/<size>")
 def create(size):
-	world = make_new_world(int(size))
+	size = int(size)
+	world = make_new_world(size)
+	print request.args 
+	print request.args.get('random')
+	if request.args.get('random', '') != '':
+		for i in range(size):
+			for j in range(size):
+				world[i][j] = random.randint(0,1)
 	return jsonify(world)
 
 @app.route("/gol", methods=['POST'])
